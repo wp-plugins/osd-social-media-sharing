@@ -13,9 +13,22 @@ function osd_sms_js() {
             // Open the share links
             function osd_share(ev) {
                 var platform = this.getAttribute('data-platform');
+                switch (platform) {
+                    case 'twitter':
+                        height = 400;
+                        width = 520;
+                        break;
+                    case 'linkedIn': 
+                        height = 475;
+                        width = 520;
+                        break;
+                    default:
+                        height = 300;
+                        width = 520;
+                }
                 if (platform !== "email" && platform !== "print") {
                     ev.preventDefault();
-                    window.open(this.getAttribute("href"), platform, "menubar=1,width=520,height=300,status=1,resizable=1");
+                    window.open(this.getAttribute("href"), platform, "menubar=1,width="+width+",height="+height+",status=1,resizable=1");
                 }
             }
         })();
