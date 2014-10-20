@@ -41,32 +41,27 @@ class OSDSocialShare {
     }
 
     private function share_link($platform) {
-        $site_name = urlencode(get_bloginfo('name'));
-        $protocol = (isset($_SERVER['HTTPS'])) ? "https://" : "http://";
-        $current_url = urlencode($protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-        $text = '';
-        $post_title = urlencode(get_the_title());
         $button_title = "Click to share on ".ucfirst($platform);
         $target = ($this->user_settings['target'] == 'new' && $platform != "email") ? "_blank" : "_self";
 
         switch ($platform) {
             case 'facebook':
-                $url = "https://www.facebook.com/sharer.php?u={$current_url}";
+                $url = "https://www.facebook.com/sharer.php?u={$this->current_url}";
                 break;
             case 'twitter':
-                $url = "https://twitter.com/share?url={$current_url}&text={$post_title}";
+                $url = "https://twitter.com/share?url={$this->current_url}&text={$this->post_title}";
                 break;
             case 'google':
-                $url = "https://plus.google.com/share?url={$current_url}";
+                $url = "https://plus.google.com/share?url={$this->current_url}";
                 break;
             case 'linkedIn':
-                $url = "http://www.linkedin.com/shareArticle?mini=true&url={$current_url}&title={$post_title}&summary={$text}&source={$site_name}";
+                $url = "http://www.linkedin.com/shareArticle?mini=true&url={$this->current_url}&title={$this->post_title}&summary={$this->text}&source={$this->site_name}";
                 break;
             case 'pinterest':
-                $url = "http://pinterest.com/pin/create/button/?url={$current_url}&media=&description={$text}";
+                $url = "http://pinterest.com/pin/create/button/?url={$this->current_url}&media=&description={$this->text}";
                 break;
             case 'email':
-                $url = "mailto:someone@example.com?subject={$post_title}&body={$text}";
+                $url = "mailto:someone@example.com?subject={$this->email_subject}&body={$this->text}";
                 break;
         }
 
@@ -81,6 +76,14 @@ class OSDSocialShare {
     function replace_shortcode($atts = array()) {
         $options = $this->user_settings;
         $html = "<div class='osd-sms-title'>{$options['label']}</div>";
+
+        //set vars for share_link here
+        $this->site_name = urlencode(get_bloginfo('name'));
+        $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != '') ? "https://" : "http://";
+        $this->current_url = urlencode($protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+        $this->text = '';
+        $this->post_title = urlencode(get_the_title());
+        $this->email_subject = get_the_title();
 
         foreach ($options as $platform => $option) {
             if (isset($option['enabled']) && $option['enabled'] == 1) {
