@@ -15,7 +15,8 @@ class OSDSocialShareMetaBoxes {
     }
 
     public function add_meta_box($post_type) {
-        $user_post_types = get_option('osd_social_share_options')['post_types'];
+        $user_post_types = get_option('osd_social_share_options');
+        $user_post_types = $user_post_types['post_types'];
 
         if (isset($user_post_types[$post_type])){
             //add_meta_box( $id, $title, $callback, $page, $context, $priority, $callback_args ); 
@@ -45,6 +46,7 @@ class OSDSocialShareMetaBoxes {
         if (!isset($_POST['osd_sms_meta_nonce']) 
             || !wp_verify_nonce($_POST['osd_sms_meta_nonce'], 'osd_sms_meta_nonce')
             || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            || (defined('DOING_AJAX') && DOING_AJAX)
             || ($_POST['post_type'] == 'page' && !current_user_can('edit_page', $post_id)) 
             || !current_user_can('edit_post', $post_id)) {
             return $post_id;
