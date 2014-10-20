@@ -1,0 +1,46 @@
+.osd-sms-wrapper {
+    border-top: 1px solid #bbb;
+    display: block;
+    padding-top: 5px;
+    margin: 20px 0;
+    width: 100%;
+    position: relative;
+}
+.osd-sms-wrapper > .osd-sms-title {
+    padding: 10px 0;
+}
+.osd-sms-wrapper > .icon-button,
+.osd-sms-wrapper > .text-button {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
+    cursor: pointer;
+}
+.osd-sms-wrapper > .icon-button > a > img {
+    height: 32px;
+    display: block;
+}
+.osd-sms-wrapper > .text-button > a {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0px 0px 2px 0px rgba(100,100,100,.2);
+    font-family: arial;
+    font-size: 14px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #555;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.osd-sms-wrapper > .text-button > a:active {
+    box-shadow: inset 0px 0px 6px 0px rgba(100,100,100,.2);
+    padding: 6px 10px 4px 10px;
+}
+.osd-sms-wrapper > .text-button > a:hover {
+    text-decoration: none;
+}
+.osd-sms-link {
+    display: inline-block;
+    vertical-align: middle;
+}
