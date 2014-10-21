@@ -3,7 +3,7 @@
 Plugin Name: OSD Social Media Sharing
 Plugin URI: http://outsidesource.com
 Description: Add buttons to share any of your content on facebook, twitter, google plus, pinterest, email and more.
-Version: 1.0
+Version: 1.1
 Author: OSD Web Development Team
 Author URI: http://outsidesource.com
 License: GPL2v2
