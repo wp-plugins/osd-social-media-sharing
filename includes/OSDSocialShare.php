@@ -7,6 +7,7 @@ $osd_social_media_sharing = new OSDSocialShare;
 class OSDSocialShare {
     private $args = null;
     private $user_settings = array();
+    private $pinterest_used = false;
 
     function __construct($args = 
         NULL) { 
@@ -58,7 +59,8 @@ class OSDSocialShare {
                 $url = "http://www.linkedin.com/shareArticle?mini=true&url={$this->current_url}&title={$this->post_title}&summary={$this->text}&source={$this->site_name}";
                 break;
             case 'pinterest':
-                $url = "http://pinterest.com/pin/create/button/?url={$this->current_url}&media=&description={$this->text}";
+                $url = "http://pinterest.com/pin/create/button/?url={$this->current_url}&description={$this->post_title}&media=";
+                $this->pinterest_used = true;
                 break;
             case 'email':
                 $url = "mailto:someone@example.com?subject={$this->email_subject}&body={$this->text}";
@@ -97,6 +99,11 @@ class OSDSocialShare {
                     $html .= "<div class='text-button'>".$this->share_link($platform).ucfirst($platform)."</a></div>";
                 }
             }
+        }
+
+        // Attach our pinterest JS if required
+        if ($this->pinterest_used) {
+            add_action('wp_footer', 'osd_sms_pinterest_js');
         }
 
         $html = "<div class='osd-sms-wrapper'>{$html}</div>";

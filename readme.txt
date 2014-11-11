@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, social media, facebook, twitter, pinterest, linkedIn, google plus, google, email, osd, social media sharing, share buttons, sharing buttons, jetpack sharing, jetpack, custom sharing icons
 Requires at least: 3.4
 Tested up to: 4.0
-Stable tag: 1.1
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,12 +40,16 @@ Yes, as users ask us questions.
 
 == Changelog ==
 
-= 1.0 =
-* Initial creation
+= 2.0 =
+* Added Pinterest image picker while maintaining no external library loading
+* Corrected the open in same window mode
+* Improved default styling
 
 = 1.1 =
 * Fixed bug with quick edit overwriting plugin settings
 
+= 1.0 =
+* Initial creation
 
 == Upgrade Notice ==
 
@@ -66,6 +70,7 @@ Start Sharing!
 7. Ability to upload your own Icons!
 8. Remove the icons on a per post basis with a check box in the edit post screen
 9. Does not hook into the content filter for the post type!
+10. Ability to change pinterest icon
 
 Link to plugin page [Wordpress plugin page](http://wordpress.org/plugins/osd-social-media-sharing "Link").
 
