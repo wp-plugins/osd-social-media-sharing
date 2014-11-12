@@ -4,80 +4,95 @@ function osd_sms_js() {
     ?>
     <script>
         (function() {
-            // Attach events
-            var osd_shares = document.querySelectorAll('.osd-sms-link');
-            for (var i=0, l=osd_shares.length; i < l; i++) {
-                osd_shares[i].addEventListener('click', osd_share);
+            // Define variables
+            var sizes = {
+                "twitter": [520, 400],
+                "linkedIn": [520, 475],
+                "default": [520, 300],
             }
 
-            // Open the share links
+            // Initialize OSD SMS
+            init();
+
+
+            // Initialize OSD Social Media Sharing
+            function init() {
+                // Attach event listeners to buttons
+                var osd_shares = document.querySelectorAll('.osd-sms-link');
+                for (var i=0, l=osd_shares.length; i < l; i++) {
+                    var platform = osd_shares[i].getAttribute('data-platform');
+                    var width = (sizes[platform] !== undefined) ? sizes[platform][0] : sizes["default"][0];
+                    var height = (sizes[platform] !== undefined) ? sizes[platform][0] : sizes["default"][0];
+                    osd_shares[i].setAttribute("data-width", width);
+                    osd_shares[i].setAttribute("data-height", height);
+                    osd_shares[i].addEventListener('click', osd_share);
+                }
+
+                // Set up pinterest modal
+                if (document.querySelector('.osd-sms-link[data-platform=pinterest]') !== null) {
+                    set_up_image_picker();
+                }
+            }
+
+
+            // Fires the action appropriate to the link
             function osd_share(ev) {
                 var platform = this.getAttribute('data-platform');
-                switch (platform) {
-                    case 'twitter':
-                        height = 400;
-                        width = 520;
-                        break;
-                    case 'linkedIn': 
-                        height = 475;
-                        width = 520;
-                        break;
-                    default:
-                        height = 300;
-                        width = 520;
-                }
-                if (platform !== "email" && platform !== "print" && platform !== "pinterest") {
-                    if (this.getAttribute("target") !== "_self") {
-                        ev.preventDefault();
-                        window.open(this.getAttribute("href"), platform, "menubar=1,width="+width+",height="+height+",status=1,resizable=1");
-                    }
+                if (platform === "pinterest") {
+                    // Show the modal
+                    ev.preventDefault();
+                    document.querySelector('.osd-image-picker-modal').className += " osd-sms-show";
+                } else if (platform !== "email" && platform !== "print") {
+                    open_link(this, ev);
                 }
             }
-        })();
-    </script>
-    <?php
-}
-add_action('wp_footer', 'osd_sms_js');
 
 
+            // Opens the share link
+            function open_link(link, ev) {
+                if (ev !== undefined) {
+                    ev.preventDefault();
+                }
+                if (link.getAttribute("target") !== "_self") {
+                    window.open(link.getAttribute("href"), link.getAttribute("data-platform"), "menubar=1,width="+link.getAttribute("data-width")+",height="+link.getAttribute("data-height")+",status=1,resizable=1");
+                } else {
+                    window.location = link.getAttribute("href");
+                }
+            }
 
-// Injects the OSD Social Sharing JavaScript for the pinterest button functionality
-// Added to footer in OSD Social Share class
-function osd_sms_pinterest_js() {
-    ?>
-    <div class='osd-image-picker-modal'>
-        <div class='osd-image-picker'>
-            <div class="osd-image-picker-list"></div>
-        </div>
-    </div>
-    
-    <script>
-        (function() {
-            // Attach image picker event to Pinterest button
-            var modal = document.querySelector('.osd-image-picker-modal'); 
-            var cont = document.querySelector('.osd-image-picker-list');
-            var pinterestLink = document.querySelector('.osd-sms-link[data-platform=pinterest]');
-            pinterestLink.addEventListener("click", osdImagePicker);
-            modal.addEventListener("click", closeModal);
 
-            // Create the image picker
-            function osdImagePicker(ev) {
-                var images = document.querySelectorAll('img');
+            // Sets up image picker
+            function set_up_image_picker() {
+                // Attach image picker event to Pinterest button
+                var modal = document.createElement("div");
+                modal.className = "osd-image-picker-modal";
+                modal.innerHTML = "<div class='osd-image-picker'><div class='osd-image-picker-list'></div></div>";
+                document.body.appendChild(modal);
+                modal.addEventListener("click", closeModal);
 
-                // Exit if there are no images
-                if (images.length === 0) {
-                    return;
+                var cont = document.querySelector('.osd-image-picker-list');
+                var origImages = document.querySelectorAll('img');
+                var images = [];
+
+                // Loop through images and only get good types and images that aren't a part of OSD Social Media Sharing
+                for (var i=0, l=origImages.length; i < l; i++) {
+                    if (origImages[i].src.match(/\.(jpg|jpeg|png|svg|bmp|gif)$/) === null) {
+                        continue;
+                    } else if (origImages[i].parentElement.className.indexOf("osd-sms-link") !== -1) {
+                        continue;
+                    }
+                    images.push(origImages[i]);
                 }
 
-                // Prevent opening of link
-                ev.preventDefault();
+                // If there are no good images, return
+                if (images.length === 0) {
+                    open_link(link);
+                    return;
+                }
 
                 // Only append the images and attach events once
                 if (cont.innerHTML === "") {
                     for (var i=0, l=images.length; i < l; i++) {
-                        if (images[i].src.match(/\.(jpg|jpeg|png|svg|bmp)$/) === null) {
-                            continue;
-                        }
                         var imageCont = document.createElement('div');
                         var image = document.createElement('div');
                         imageCont.className = "osd-image-picker-img-cont";
@@ -90,13 +105,12 @@ function osd_sms_pinterest_js() {
                         image.addEventListener('click', attachPinterestMedia);
                     }
                 }
-
-                // Show the modal
-                modal.className += " osd-sms-show";
             }
+
 
             // Closes the modal
             function closeModal(ev) {
+                var modal = document.querySelector('.osd-image-picker-modal');
                 if (ev !== undefined) {
                     var parent = ev.target;
                     var count = 0;
@@ -111,17 +125,16 @@ function osd_sms_pinterest_js() {
                 modal.className = modal.className.replace(" osd-sms-show", "");
             }
 
-            // Attaches pinterest image media
+
+            // Attach the image to the pinterest link
             function attachPinterestMedia() {
-                pinterestLink.href = pinterestLink.href.replace(/&media=.*/, "&media=" + this.getAttribute("data-media"));
+                var link = document.querySelector('.osd-sms-link[data-platform=pinterest]');
+                link.href = link.href.replace(/&media=.*/, "&media=" + this.getAttribute("data-media"));
                 closeModal();
-                if (pinterestLink.getAttribute("target") === "_self") {
-                    window.location = pinterestLink.getAttribute("href");
-                    return;
-                }
-                window.open(pinterestLink.getAttribute("href"), "pinterest", "menubar=1,width=300,height=520,status=1,resizable=1");
+                open_link(link);
             }
         })();
     </script>
     <?php
 }
+add_action('wp_footer', 'osd_sms_js');
