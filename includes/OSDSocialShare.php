@@ -91,7 +91,7 @@ class OSDSocialShare {
                     if (isset($option['icon']) && $option['icon'] != '') {
                         $html .= "<div class='icon-button'>".$this->share_link($platform)."<img src='".wp_get_attachment_url($option['icon'])."' /></a></div>";
                     } else {
-                        $html .= "<div class='icon-button'>".$this->share_link($platform)."<img src='".plugins_url('osd-social-media-sharing/images/'.$platform.'.svg')."' /></a></div>";
+                        $html .= "<div class='icon-button'>".$this->share_link($platform)."<img src='".plugins_url('osd-social-media-sharing/images/icons.svg#'.$platform)."' /></a></div>";
                     }
                 } else {
                     $html .= "<div class='text-button'>".$this->share_link($platform).ucfirst($platform)."</a></div>";

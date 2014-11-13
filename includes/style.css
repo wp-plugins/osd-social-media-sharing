@@ -21,6 +21,7 @@
 }
 .osd-sms-wrapper > .icon-button > a > img {
     height: 32px;
+    width: 32px;
     display: block;
 }
 .osd-sms-wrapper > .text-button > a {
