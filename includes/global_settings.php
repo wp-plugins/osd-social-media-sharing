@@ -98,7 +98,7 @@ class OSDSocialShareSettings {
             array($this, 'services_callback'), // Callback
             'osd-social-share-options', // Page
             'available_settings' // Section           
-        );      
+        );
 
         add_settings_section(
             'live_preview', // ID
@@ -156,8 +156,18 @@ class OSDSocialShareSettings {
             </select>";
     }
 
+    public function sort_array_order($l, $r) {
+        if ((int) $this->options[$l]['order'] < (int) $this->options[$r]['order']) {
+            return -1;
+        } else if ((int) $this->options[$l]['order'] > (int) $this->options[$r]['order']) {
+            return 1;
+        }
+        return 0;
+    }
+
     public function services_callback() {
         $services_array = array('facebook', 'twitter', 'google', 'linkedIn', 'pinterest', 'email');
+        usort($services_array, array($this, 'sort_array_order'));
         $counter = 0;
 
         echo 
@@ -192,13 +202,14 @@ class OSDSocialShareSettings {
 
             $enabled_checked = (isset($this->options[$val]['enabled'])) ? ' checked="checked"' : '';
             $icon = (isset($this->options[$val]['icon'])) ? $this->options[$val]['icon'] : '';
-            $icon_url = ($icon != '') ? "<img src='".wp_get_attachment_url($icon)."' />" : "<img src='".plugins_url('images/'.$val.'.svg', dirname(__FILE__))."' />";
+            $order = (isset($this->options[$val]['order']) && $this->options[$val]['order'] != "") ? $this->options[$val]['order'] : $counter;
+            $icon_url = ($icon != '') ? "<img src='".wp_get_attachment_url($icon)."' />" : "<img src='".plugins_url('images/icons.svg#'.$val, dirname(__FILE__))."' />";
 
             echo 
                 "<tr class='list_item'>
                     <td class='order move'>
                         <div class='count'>{$counter}</div>
-                        <input class-'order-val' type='hidden' value='' />
+                        <input name='osd_social_share_options[{$val}][order]' class='order-val' type='hidden' value='{$order}' />
                     </td>
                     <td class='move'>".ucfirst($val)."</td>
                     <td>

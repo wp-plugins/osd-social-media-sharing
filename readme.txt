@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, social media, facebook, twitter, pinterest, linkedIn, google plus, google, email, osd, social media sharing, share buttons, sharing buttons, jetpack sharing, jetpack, custom sharing icons
 Requires at least: 3.4
 Tested up to: 4.0
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,12 @@ Yes, as users ask us questions.
 
 
 == Changelog ==
+
+= 2.1.1 =
+* Fixed broken images in settings pages
+* Fixed Pinterest image picker showing up if there are no images
+* Fixed JS error bug
+* Fixed icon ordering issues in settings pages
 
 = 2.1.0 =
 * Fixed a styling issue with IE (icons were spaced too far apart due to IE rendering error)

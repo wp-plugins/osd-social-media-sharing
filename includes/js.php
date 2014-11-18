@@ -40,8 +40,12 @@ function osd_sms_js() {
                 var platform = this.getAttribute('data-platform');
                 if (platform === "pinterest") {
                     // Show the modal
-                    ev.preventDefault();
-                    document.querySelector('.osd-image-picker-modal').className += " osd-sms-show";
+                    if (document.querySelector('.osd-image-picker-modal').className.indexOf("osd-sms-no-images") !== -1) {
+                        open_link(this, ev);
+                    } else {
+                        ev.preventDefault();
+                        document.querySelector('.osd-image-picker-modal').className += " osd-sms-show";
+                    }
                 } else if (platform !== "email" && platform !== "print") {
                     open_link(this, ev);
                 }
@@ -86,24 +90,22 @@ function osd_sms_js() {
 
                 // If there are no good images, return
                 if (images.length === 0) {
-                    open_link(link);
+                    modal.className += " osd-sms-no-images";
                     return;
                 }
 
                 // Only append the images and attach events once
-                if (cont.innerHTML === "") {
-                    for (var i=0, l=images.length; i < l; i++) {
-                        var imageCont = document.createElement('div');
-                        var image = document.createElement('div');
-                        imageCont.className = "osd-image-picker-img-cont";
-                        image.className = "osd-image-picker-img";
-                        image.setAttribute("data-media", encodeURIComponent(images[i].src));
-                        image.setAttribute("data-media-size", images[i].naturalWidth + " x " + images[i].naturalHeight);
-                        image.style.backgroundImage = "url(" + images[i].src + ")";
-                        imageCont.appendChild(image);
-                        cont.appendChild(imageCont);
-                        image.addEventListener('click', attachPinterestMedia);
-                    }
+                for (var i=0, l=images.length; i < l; i++) {
+                    var imageCont = document.createElement('div');
+                    var image = document.createElement('div');
+                    imageCont.className = "osd-image-picker-img-cont";
+                    image.className = "osd-image-picker-img";
+                    image.setAttribute("data-media", encodeURIComponent(images[i].src));
+                    image.setAttribute("data-media-size", images[i].naturalWidth + " x " + images[i].naturalHeight);
+                    image.style.backgroundImage = "url(" + images[i].src + ")";
+                    imageCont.appendChild(image);
+                    cont.appendChild(imageCont);
+                    image.addEventListener('click', attachPinterestMedia);
                 }
             }
 
