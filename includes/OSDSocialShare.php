@@ -46,19 +46,19 @@ class OSDSocialShare {
 
         switch ($platform) {
             case 'facebook':
-                $url = "https://www.facebook.com/sharer.php?u={$this->current_url}";
+                $url = "https://www.facebook.com/sharer/sharer.php?u={$this->current_url}";
                 break;
             case 'twitter':
-                $url = "https://twitter.com/share?url={$this->current_url}&text={$this->post_title}";
+                $url = "https://twitter.com/intent/tweet?text={$this->post_title}&url={$this->current_url}";
                 break;
             case 'google':
                 $url = "https://plus.google.com/share?url={$this->current_url}";
                 break;
             case 'linkedIn':
-                $url = "http://www.linkedin.com/shareArticle?mini=true&url={$this->current_url}&title={$this->post_title}&summary={$this->text}&source={$this->site_name}";
+                $url = "https://www.linkedin.com/shareArticle?mini=true&url={$this->current_url}&title={$this->post_title}&summary={$this->text}&source={$this->site_name}";
                 break;
             case 'pinterest':
-                $url = "http://pinterest.com/pin/create/button/?url={$this->current_url}&description={$this->post_title}&media=";
+                $url = "http://www.pinterest.com/pin/create/button/?url={$this->current_url}&description={$this->post_title}&media=";
                 break;
             case 'email':
                 $url = "mailto:someone@example.com?subject={$this->email_subject}&body={$this->text}";
