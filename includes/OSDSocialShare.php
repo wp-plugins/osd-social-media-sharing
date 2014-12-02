@@ -31,7 +31,7 @@ class OSDSocialShare {
                 && isset($options['post_types'])
                 && count($options['post_types']) > 0
                 && isset($options['post_types'][$post->post_type])) {
-                $post->post_content .= $this->replace_shortcode();
+                $post->post_content .= "[osd_social_media_sharing]";
             }
         }    
     }

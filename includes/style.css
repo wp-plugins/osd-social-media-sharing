@@ -17,7 +17,7 @@
 }
 .osd-sms-wrapper > .icon-button:nth-of-type(n+3),
 .osd-sms-wrapper > .text-button:nth-of-type(n+3) {
-    margin-left: 4px;
+    margin-left: 6px;
 }
 .osd-sms-wrapper > .icon-button > a > img {
     height: 32px;
