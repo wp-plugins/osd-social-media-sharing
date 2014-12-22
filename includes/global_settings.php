@@ -85,6 +85,14 @@ class OSDSocialShareSettings {
         ); 
 
         add_settings_field(
+            'emailTo', // ID
+            'Email Sharing "To:" Address', // Title 
+            array($this, 'emailTo_callback'), // Callback
+            'osd-social-share-options', // Page          
+            'available_settings' // Section 
+        ); 
+
+        add_settings_field(
             'post_types', // ID
             'Show Sharing Buttons On', // Title 
             array($this, 'post_types_callback'), // Callback
@@ -154,6 +162,13 @@ class OSDSocialShareSettings {
                 <option value='new'".(($this->options['target'] == 'new') ? ' selected=\"selected\"' : '').">New Window</option>
                 <option value='same'".(($this->options['target'] == 'same') ? ' selected=\"selected\"' : '').">Same Window</option>
             </select>";
+    }
+
+    public function emailTo_callback() {
+        printf(
+            '<input type="text" id="emailTo" name="osd_social_share_options[emailTo]" value="%s" />',
+            isset($this->options['emailTo']) ? esc_attr($this->options['emailTo']) : 'someone@example.com'
+        );
     }
 
     public function sort_array_order($l, $r) {

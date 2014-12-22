@@ -61,7 +61,7 @@ class OSDSocialShare {
                 $url = "http://www.pinterest.com/pin/create/button/?url={$this->current_url}&description={$this->post_title}&media=";
                 break;
             case 'email':
-                $url = "mailto:someone@example.com?subject={$this->email_subject}&body={$this->text}";
+                $url = "mailto:{$this->email_to}?subject={$this->email_subject}&body={$this->email_body}";
                 break;
         }
 
@@ -83,7 +83,9 @@ class OSDSocialShare {
         $this->current_url = urlencode($protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
         $this->text = '';
         $this->post_title = urlencode(get_the_title());
-        $this->email_subject = get_the_title();
+        $this->email_to = rawurlencode($options['emailTo']);
+        $this->email_subject = rawurlencode(get_the_title());
+        $this->email_body = rawurlencode(get_permalink());
 
         foreach ($options as $platform => $option) {
             if (isset($option['enabled']) && $option['enabled'] == 1) {
