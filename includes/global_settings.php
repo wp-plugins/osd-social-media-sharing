@@ -238,7 +238,6 @@ class OSDSocialShareSettings {
                         <div class='icon-preview'{$icon_display}>{$icon_url}</div>
                         <input class='icon-id' name='osd_social_share_options[{$val}][icon]' type='hidden' value='{$icon}' />
                         <input class='platform' type='hidden' value='{$val}' />
-                        <input class='platform' type='hidden' value='{$val}' />
                     </td>
                     <td><div class='submit button-primary image-picker'>Select</div></td>
                     <td><input class='enable-service' type='checkbox' id='{$val}' name='osd_social_share_options[{$val}][enabled]' value='1'{$enabled_checked} /></td>

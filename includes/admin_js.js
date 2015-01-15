@@ -6,11 +6,10 @@ document.onready = function() {
         if (jQuery(this).hasClass('remove-icon')) {
             var preview_parent = jQuery(this).parent().prev();
             var platform = jQuery(preview_parent).find('.platform').val();
-            jQuery(preview_parent).find('.icon-preview').html('<img src="'+path+platform+'.svg">');
+            jQuery(preview_parent).find('.icon-preview').html('<img src="'+path+'icons.svg#'+platform+'">');
             jQuery(preview_parent).find('.icon-id').val('');
             build_preview();
             update_services();
-            console.log(path);
         } else {
             var this_button = jQuery(this);
             var preview_parent = jQuery(this_button).parent().prev();

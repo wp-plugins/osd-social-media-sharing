@@ -8,8 +8,7 @@ class OSDSocialShare {
     private $args = null;
     private $user_settings = array();
 
-    function __construct($args = 
-        NULL) { 
+    function __construct($args = NULL) { 
         $this->args = $args;
         $this->user_settings = get_option('osd_social_share_options');
 
@@ -74,7 +73,9 @@ class OSDSocialShare {
     }
 
     function replace_shortcode($atts = array()) {
-        $options = $this->user_settings;
+        if (!$options = $this->user_settings) {
+            return;
+        }
         $html = "<div class='osd-sms-title'>{$options['label']}</div>";
 
         //set vars for share_link here
