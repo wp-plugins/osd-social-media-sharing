@@ -44,6 +44,22 @@
 td.move {
     cursor: move;
 }
+.move.service-name > input {
+    max-width: 140px;
+}
+.delete-custom {
+    color: red;
+    cursor: pointer;
+    display: inline;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 10px;
+    padding: 0 5px;
+}
+.button-primary.add-custom {
+    float: right;
+    margin-top: 20px;
+}
 ul.post-types {
     list-style: none;
     margin: 0;

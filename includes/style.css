@@ -6,25 +6,20 @@
     width: 100%;
     position: relative;
 }
-.osd-sms-wrapper > .osd-sms-title {
+.osd-sms-title {
     padding: 10px 0;
 }
-.osd-sms-wrapper > .icon-button,
-.osd-sms-wrapper > .text-button {
+.osd-sms-icon-button,
+.osd-sms-text-button {
     display: inline-block;
     vertical-align: middle;
     cursor: pointer;
 }
-.osd-sms-wrapper > .icon-button:nth-of-type(n+3),
-.osd-sms-wrapper > .text-button:nth-of-type(n+3) {
+.osd-sms-icon-button:nth-of-type(n+3),
+.osd-sms-text-button:nth-of-type(n+3) {
     margin-left: 6px;
 }
-.osd-sms-wrapper > .icon-button > a > img {
-    height: 32px;
-    width: 32px;
-    display: block;
-}
-.osd-sms-wrapper > .text-button > a {
+.osd-sms-text-button > a {
     background-color: #f8f8f8;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -37,17 +32,29 @@
     -webkit-user-select: none;
     user-select: none;
 }
-.osd-sms-wrapper > .text-button > a:active {
+.osd-sms-text-button > a:active {
     box-shadow: inset 0px 0px 6px 0px rgba(100,100,100,.2);
     padding: 6px 10px 4px 10px;
 }
-.osd-sms-wrapper > .text-button > a:hover {
+.osd-sms-text-button > a:hover {
     text-decoration: none;
 }
 .osd-sms-link {
     display: inline-block;
     vertical-align: middle;
 }
+.osd-sms-link > img {
+    height: 32px;
+    width: 32px;
+    display: block;
+}
+.osd-sms-icon-button.osd-no-custom-icon > .osd-sms-link { width: 32px; height: 32px; background-image: url("../images/icons.png"); background-repeat: no-repeat; background-size: 100% auto; background-position: 0px 0%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=email] { background-position: 0px 16.666666%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=twitter] { background-position: 0px 33.333333%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=pinterest] { background-position: 0px 50%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=linkedIn] { background-position: 0px 66.666666%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=google] { background-position: 0px 83.333333%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=facebook] { background-position: 0px 100%; }
 
 
 /* Pinterest Image Picker */

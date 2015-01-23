@@ -53,6 +53,7 @@ class OSDSocialShareSettings {
     public function page_init() {   
         // Register Style Sheet
         wp_register_style('osd_sms_admin_style', plugins_url('includes/admin_style.css', dirname(__FILE__)));
+        wp_register_style('osd_sms_style', plugins_url('includes/style.css', dirname(__FILE__)));
         wp_register_script('osd_sms_admin_js', plugins_url('includes/admin_js.js', dirname(__FILE__)));
 
         register_setting(
@@ -171,26 +172,21 @@ class OSDSocialShareSettings {
         );
     }
 
-    public function sort_array_order($l, $r) {
-        if ((int) $this->options[$l]['order'] < (int) $this->options[$r]['order']) {
-            return -1;
-        } else if ((int) $this->options[$l]['order'] > (int) $this->options[$r]['order']) {
-            return 1;
-        }
-        return 0;
-    }
-
     public function services_callback() {
-        $services_array = array('facebook', 'twitter', 'google', 'linkedIn', 'pinterest', 'email');
-        usort($services_array, array($this, 'sort_array_order'));
-        $counter = 0;
+        // Put the services in order
+        $sortBy = array();
+        foreach ($this->options['services'] as $service) {
+             $sortBy[] = $service['order'];
+        }
+        array_multisort($sortBy, SORT_ASC, $this->options['services']);       
 
         echo 
-            "<table class='wp-list-table widefat options-wrapper'>
+            "<table class='wp-list-table widefat options-wrapper available-services'>
                 <thead>
                     <tr>
                         <th>Order</th>
                         <th>Service</th>
+                        <th>Custom URL</th>
                         <th>Button Style</th>
                         <th>Preview</th>
                         <th>Custom Icon</th>
@@ -201,55 +197,72 @@ class OSDSocialShareSettings {
                 </tfoot>
                 <tbody class='ui-sortable'>";
 
-        foreach ($services_array as $val) {
+        $counter = 0;
+        $stock_services = array('facebook', 'twitter', 'google', 'linkedIn', 'pinterest', 'email');
+        foreach ($this->options['services'] as $id => $val) {
             $counter++;
+            $stock_service = (in_array($id, $stock_services)) ? true : false;
+            $service_name = ($stock_service) ? $id : $val['service-name'];
             $icon_selected = ' selected="selected"';
             $icon_display = "";
             $text_selected = "";
             $text_display = 'style="display: none;"';
 
-            if (isset($this->options[$val]['button-type']) && $this->options[$val]['button-type'] == 'text') {
+            if (isset($val['button-type']) && $val['button-type'] == 'text') {
                 $text_selected = ' selected="selected"';
                 $text_display = "";
                 $icon_selected = "";
                 $icon_display = 'style="display: none;"';
             }
 
-            $enabled_checked = (isset($this->options[$val]['enabled'])) ? ' checked="checked"' : '';
-            $icon = (isset($this->options[$val]['icon'])) ? $this->options[$val]['icon'] : '';
-            $order = (isset($this->options[$val]['order']) && $this->options[$val]['order'] != "") ? $this->options[$val]['order'] : $counter;
-            $icon_url = ($icon != '') ? "<img src='".wp_get_attachment_url($icon)."' />" : "<img src='".plugins_url('images/icons.svg#'.$val, dirname(__FILE__))."' />";
+            $enabled_checked = (isset($val['enabled'])) ? ' checked="checked"' : '';
+            $url = (isset($val['url'])) ? $val['url'] : '';
+            $icon = (isset($val['icon'])) ? $val['icon'] : '';
+            // $order = (isset($val['order']) && $val['order'] != "") ? $val['order'] : $counter;
+            $order = $counter; 
+            $icon_url = ($icon != '') ? "<img src='".wp_get_attachment_url($icon)."' />" : "<div class='osd-sms-icon-button osd-no-custom-icon'><div class='osd-sms-link' data-platform='{$id}'></div></div>";
 
             echo 
                 "<tr class='list_item'>
                     <td class='order move'>
                         <div class='count'>{$counter}</div>
-                        <input name='osd_social_share_options[{$val}][order]' class='order-val' type='hidden' value='{$order}' />
+                        <input name='osd_social_share_options[services][{$id}][order]' class='order-val' type='hidden' value='{$order}' />
                     </td>
-                    <td class='move'>".ucfirst($val)."</td>
+                    <td class='move service-name'>";
+            echo ($stock_service) ? $service_name : "<input type='text' value='{$val['service-name']}' placeHolder='Custom Service Name' name='osd_social_share_options[services][{$id}][service-name]'>";
+            echo "</td>
+                    <td class='custom-url'>";
+            echo ($stock_service) ? "<i>built in</i>" : "<input type='text' name='osd_social_share_options[services][{$id}][url]' value='{$url}' />";
+            echo  "</td>
                     <td>
-                        <select class='button-type' name='osd_social_share_options[{$val}][button-type]'>
+                        <select autocomplete='off' class='button-type' name='osd_social_share_options[services][{$id}][button-type]'>
                             <option value='icon'{$icon_selected}>Icon</option>
                             <option value='text'{$text_selected}>Text</option>
                         </select>
                     </td>
                     <td>
-                        <div class='text-preview'{$text_display}>".ucfirst($val)."</div>
+                        <div class='text-preview'{$text_display}>{$service_name}</div>
                         <div class='icon-preview'{$icon_display}>{$icon_url}</div>
-                        <input class='icon-id' name='osd_social_share_options[{$val}][icon]' type='hidden' value='{$icon}' />
-                        <input class='platform' type='hidden' value='{$val}' />
+                        <input class='icon-id' name='osd_social_share_options[services][{$id}][icon]' type='hidden' value='{$icon}' />
+                        <input class='platform' type='hidden' value='{$id}' />
                     </td>
                     <td><div class='submit button-primary image-picker'>Select</div></td>
-                    <td><input class='enable-service' type='checkbox' id='{$val}' name='osd_social_share_options[{$val}][enabled]' value='1'{$enabled_checked} /></td>
+                    <td>
+                        <input class='enable-service' type='checkbox' id='{$id}' name='osd_social_share_options[services][{$id}][enabled]' value='1'{$enabled_checked} />";
+                        echo ($stock_service) ? '' : "<div class='delete-custom' title='Delete'>-</div>";
+                echo "</td>
                 </tr>";
         }
 
         echo "</tbody></table>";
+        echo "<div class='button-primary add-custom'>Add Custom</div>";
+
         echo "<script>var path = '".plugins_url('images/', dirname(__FILE__))."';</script>";
     }
     /**** end output to admin settings screen ****/
 
     public function osd_sms_admin_style() {
+        wp_enqueue_style('osd_sms_style');
         wp_enqueue_style('osd_sms_admin_style');
     }
 

@@ -2,8 +2,8 @@
 Contributors: osdwebdev
 Tags: wordpress, social media, facebook, twitter, pinterest, linkedIn, google plus, google, email, osd, social media sharing, share buttons, sharing buttons, jetpack sharing, jetpack, custom sharing icons
 Requires at least: 3.4
-Tested up to: 4.0
-Stable tag: 2.3.0
+Tested up to: 4.1
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,12 @@ Yes, as users ask us questions.
 
 
 == Changelog ==
+
+= 3.0 =
+* THIS CHANGE WILL REQUIRE YOU TO RE-SAVE YOUR SETTINGS IN THE ADMIN SCREEN!!!!
+* SOME CLASSES HAVE CHANGED, SO YOUR CUSTOM STYLING MAY BE EFFECTED!!!
+* Changed icons to png from svg for better cross browser support
+* Upgraded plugin to allow custom link / icon pairs
 
 = 2.3.0 =
 * Removed console logging in admin screens
@@ -84,11 +90,16 @@ Yes, as users ask us questions.
 
 == Upgrade Notice ==
 
-= 1.0 =
-Start Sharing!
+= 3.0 =
+* THIS UPGRADE WILL REQUIRE YOU TO RESET YOUR SETTINGS!!!!
+* SOME CLASSES HAVE CHANGED, SO YOUR CUSTOM STYLING MAY BE EFFECTED!!!
+* Added the ability to enter custom sharing links / icons
 
 = 1.1 =
 * Fixed bug with quick edit overwriting plugin settings
+
+= 1.0 =
+Start Sharing!
 
 == A brief Feature List ==
 
