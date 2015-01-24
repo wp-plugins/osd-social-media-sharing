@@ -39,9 +39,8 @@ class OSDSocialShare {
         wp_enqueue_style('osd_sms_css', plugins_url('osd-social-media-sharing/includes/style.css'));
     }
 
-    private function share_link($platform, $button_title) {
+    private function share_link($platform, $button_title, $custom_url) {
         $target = ($this->user_settings['target'] == 'new' && $platform != "email") ? "_blank" : "_self";
-        $custom_url = (isset($atts['url'])) ? $atts['url'] : '';
 
         switch ($platform) {
             case 'facebook':
@@ -63,10 +62,10 @@ class OSDSocialShare {
                 $url = "mailto:{$this->email_to}?subject={$this->email_subject}&body={$this->email_body}";
                 break;
             default:
-                $url = $atts['url'];
+                $url = $custom_url;
                 break;
         }
-        return "<a class='osd-sms-link{$class}' data-platform='{$platform}' target='{$target}' title='{$button_title}' href='{$url}' rel='nofollow'>";
+        return "<a class='osd-sms-link' data-platform='{$platform}' target='{$target}' title='{$button_title}' href='{$url}' rel='nofollow'>";
     }
 
     // Shortcode implementation
@@ -93,18 +92,20 @@ class OSDSocialShare {
         foreach ($options['services'] as $platform => $option) {
             $button_title = (isset($option['service-name'])) ? $option['service-name'] : ucfirst($platform);
             $button_title = "Click to share on ".$button_title;
+            $custom_url = (isset($option['url'])) ? $option['url'] : '';
+
             if (isset($option['enabled']) && $option['enabled'] == 1) {
                 if (isset($option['button-type']) && $option['button-type'] == 'icon') {
                     if (isset($option['icon']) && $option['icon'] != '') {
-                        $html .= "<div class='osd-sms-icon-button'>".$this->share_link($platform, $button_title)."<img src='".wp_get_attachment_url($option['icon'])."' /></a></div>";
+                        $html .= "<div class='osd-sms-icon-button'>".$this->share_link($platform, $button_title, $custom_url)."<img src='".wp_get_attachment_url($option['icon'])."' /></a></div>";
                     } else {
-                        $html .= "<div class='osd-sms-icon-button osd-no-custom-icon'>".$this->share_link($platform, $button_title)."</a></div>";
+                        $html .= "<div class='osd-sms-icon-button osd-no-custom-icon'>".$this->share_link($platform, $button_title, $custom_url)."</a></div>";
                     }
                 } else {
                     if (isset($option['service-name'])) {
-                        $html .= "<div class='osd-sms-text-button'>".$this->share_link($platform, $button_title).$option['service-name']."</a></div>";
+                        $html .= "<div class='osd-sms-text-button'>".$this->share_link($platform, $button_title, $custom_url).$option['service-name']."</a></div>";
                     } else {
-                        $html .= "<div class='osd-sms-text-button'>".$this->share_link($platform, $button_title).ucfirst($platform)."</a></div>";
+                        $html .= "<div class='osd-sms-text-button'>".$this->share_link($platform, $button_title, $custom_url).ucfirst($platform)."</a></div>";
                     }
                 }
             }

@@ -2,7 +2,8 @@
 // Prevent direct access to file
 defined('ABSPATH') or die("No script kiddies please!");
 
-if (get_option('osd_social_share_options') === false) {
+$options = get_option('osd_social_share_options');
+if ($options === false || !isset($options['services']['email'])) {
     $default_options = array(
         'label' => 'Share this:',
         'target' => 'new',
@@ -48,5 +49,9 @@ if (get_option('osd_social_share_options') === false) {
         )
     );
 
-    add_option('osd_social_share_options', $default_options, '', 'yes');
+    if ($options === false) {
+        add_option('osd_social_share_options', $default_options, '', 'yes');
+    } else {
+        update_option('osd_social_share_options', $default_options);
+    }
 }

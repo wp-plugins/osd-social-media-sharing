@@ -74,7 +74,7 @@ document.onready = function() {
         new_row += "</td>";
         new_row += "<td>";
         new_row += "<div class='text-preview' style='display: none;'></div>";
-        new_row += "<div class='icon-preview'></div>";
+        new_row += "<div class='icon-preview'><div class='osd-sms-icon-button osd-no-custom-icon'><div class='osd-sms-link'></div></div></div>";
         new_row += "<input class='icon-id' name='osd_social_share_options[services]["+new_id+"][icon]' type='hidden' value='' />"; 
         new_row += "<input class='platform' type='hidden' value='"+new_id+"' />";
         new_row += "</td>";
