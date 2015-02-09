@@ -1,0 +1,78 @@
+.options-wrapper {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+.options-wrapper th {
+    text-align: center;
+}
+.options-wrapper > label {
+    display: inline-block;
+    width: 20%;
+    vertical-align: middle;
+}
+.options-wrapper > input {
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+.icon-preview {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.icon-preview > img {
+    height: 32px;
+    display: block;
+}         
+.text-preview {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0px 0px 2px 0px rgba(100,100,100,.2);
+    font-family: arial;
+    font-size: 14px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #555;
+    -webkit-user-select: none;
+    user-select: none;
+    display: inline-block;
+}      
+.text-preview:active {
+    box-shadow: 0 0 4px #999 inset;
+}
+td.move {
+    cursor: move;
+}
+.move.service-name > input {
+    max-width: 140px;
+}
+.delete-custom {
+    color: red;
+    cursor: pointer;
+    display: inline;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 10px;
+    padding: 0 5px;
+}
+.button-primary.add-custom {
+    float: right;
+    margin-top: 20px;
+}
+ul.post-types {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.preview-hr {
+    border-top: 1px solid #bbb;
+    display: block;
+    margin-bottom: 15px;
+    padding-top: 5px;
+    width: 100%;
+}
+#preview-wrapper .text-preview,
+#preview-wrapper .icon-preview {
+    margin-right: 5px;
+}
