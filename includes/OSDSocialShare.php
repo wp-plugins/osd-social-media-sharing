@@ -62,7 +62,9 @@ class OSDSocialShare {
                 $url = "mailto:{$this->email_to}?subject={$this->email_subject}&body={$this->email_body}";
                 break;
             default:
-                $url = $custom_url;
+                $search = array("[page]", "[title]");
+                $replacements = array($this->current_url, $this->post_title);
+                $url = str_replace($search, $replacements, $custom_url);
                 break;
         }
         return "<a class='osd-sms-link' data-platform='{$platform}' target='{$target}' title='{$button_title}' href='{$url}' rel='nofollow'>";

@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, social media, facebook, twitter, pinterest, linkedIn, google plus, google, email, osd, social media sharing, share buttons, sharing buttons, jetpack sharing, jetpack, custom sharing icons
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 3.0.1
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,11 @@ Yes, as users ask us questions.
 
 
 == Changelog ==
+
+= 3.1 =
+* Added some shortcodes to the custom url
+* [page]  this is the current url (the page that the user would share)
+* [title]  this is the current page title
 
 = 3.0 =
 * THIS CHANGE WILL REQUIRE YOU TO RE-SAVE YOUR SETTINGS IN THE ADMIN SCREEN!!!!
@@ -89,6 +94,11 @@ Yes, as users ask us questions.
 * Initial creation
 
 == Upgrade Notice ==
+
+= 3.1 =
+* Added some shortcodes to the custom url
+* [page]  this is the current url (the page that the user would share)
+* [title]  this is the current page title
 
 = 3.0.1 =
 * Upgrade bug fixes
