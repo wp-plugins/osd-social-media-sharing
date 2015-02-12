@@ -6,7 +6,7 @@ $osd_social_media_sharing = new OSDSocialShare;
 
 class OSDSocialShare {
     private $args = null;
-    private $user_settings = array();
+    private $user_settings = array("services" => array());
 
     function __construct($args = NULL) { 
         $this->args = $args;
@@ -67,7 +67,8 @@ class OSDSocialShare {
                 $url = str_replace($search, $replacements, $custom_url);
                 break;
         }
-        return "<a class='osd-sms-link' data-platform='{$platform}' target='{$target}' title='{$button_title}' href='{$url}' rel='nofollow'>";
+        // Put the url in an attribute to prevent Pinterest's official pinit script from hijacking the image
+        return "<a class='osd-sms-link' data-platform='{$platform}' target='{$target}' title='{$button_title}' href='#' data-url='{$url}' rel='nofollow'>";
     }
 
     // Shortcode implementation

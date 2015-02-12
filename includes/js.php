@@ -8,12 +8,12 @@ function osd_sms_js() {
             var sizes = {
                 "twitter": [520, 400],
                 "linkedIn": [520, 475],
+                "pinterest": [850, 700],
                 "default": [520, 300],
             }
 
             // Initialize OSD SMS
             init();
-
 
             // Initialize OSD Social Media Sharing
             function init() {
@@ -22,14 +22,14 @@ function osd_sms_js() {
                 for (var i=0, l=osd_shares.length; i < l; i++) {
                     var platform = osd_shares[i].getAttribute('data-platform');
                     var width = (sizes[platform] !== undefined) ? sizes[platform][0] : sizes["default"][0];
-                    var height = (sizes[platform] !== undefined) ? sizes[platform][0] : sizes["default"][0];
+                    var height = (sizes[platform] !== undefined) ? sizes[platform][1] : sizes["default"][1];
                     osd_shares[i].setAttribute("data-width", width);
                     osd_shares[i].setAttribute("data-height", height);
                     osd_shares[i].addEventListener('click', osd_share);
                 }
 
                 // Set up pinterest modal
-                if (document.querySelector('.osd-sms-link[data-platform=pinterest]') !== null) {
+                if (document.querySelector(".osd-sms-link[data-platform=pinterest]") !== null) {
                     set_up_image_picker();
                 }
             }
@@ -58,9 +58,9 @@ function osd_sms_js() {
                     ev.preventDefault();
                 }
                 if (link.getAttribute("target") !== "_self") {
-                    window.open(link.getAttribute("href"), link.getAttribute("data-platform"), "menubar=1,width="+link.getAttribute("data-width")+",height="+link.getAttribute("data-height")+",status=1,resizable=1");
+                    window.open(link.getAttribute("data-url"), link.getAttribute("data-platform"), "menubar=1,width="+link.getAttribute("data-width")+",height="+link.getAttribute("data-height")+",status=1,resizable=1");
                 } else {
-                    window.location = link.getAttribute("href");
+                    window.location = link.getAttribute("data-url");
                 }
             }
 
@@ -131,7 +131,7 @@ function osd_sms_js() {
             // Attach the image to the pinterest link
             function attachPinterestMedia() {
                 var link = document.querySelector('.osd-sms-link[data-platform=pinterest]');
-                link.href = link.href.replace(/&media=.*/, "&media=" + this.getAttribute("data-media"));
+                link.setAttribute("data-url", link.getAttribute("data-url").replace(/&media=.*/, "&media=" + this.getAttribute("data-media")));
                 closeModal();
                 open_link(link);
             }
