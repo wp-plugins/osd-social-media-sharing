@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, social media, facebook, twitter, pinterest, linkedIn, google plus, google, email, osd, social media sharing, share buttons, sharing buttons, jetpack sharing, jetpack, custom sharing icons
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 3.2
+Stable tag: 3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,11 @@ Yes, as users ask us questions.
 
 
 == Changelog ==
+
+= 3.3 =
+* Fixed bug with email link
+* Added Reddit share link
+* General maintainability improvements
 
 = 3.2 =
 * OSD Social Media Sharing now prevents the offical Pinterest JS from hijacking the link/picture

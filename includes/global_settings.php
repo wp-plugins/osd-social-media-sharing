@@ -2,13 +2,14 @@
 // Prevent direct access to file
 defined('ABSPATH') or die("No script kiddies please!");
 
-//SETTINGS PAGE
-$settingsPage = new OSDSocialShareSettings();
+// SETTINGS PAGE
+$settingsPage = new OSDSocialShareSettings($osd_social_media_sharing->get_options());
 
 class OSDSocialShareSettings {
     private $options;
 
-    public function __construct() {
+    public function __construct($options) {
+        $this->options = $options;
         add_action('admin_menu', array($this, 'add_submenu_page'));
         add_action('admin_init', array($this, 'page_init'));
     }
@@ -31,8 +32,6 @@ class OSDSocialShareSettings {
 
     //create options page
     public function create_admin_page() {
-        // Set class property
-        $this->options = get_option('osd_social_share_options');
         ?>
         <div class="wrap">
             <?php screen_icon(); ?>
@@ -168,17 +167,18 @@ class OSDSocialShareSettings {
     public function emailTo_callback() {
         printf(
             '<input type="text" id="emailTo" name="osd_social_share_options[emailTo]" value="%s" />',
-            isset($this->options['emailTo']) ? esc_attr($this->options['emailTo']) : 'someone@example.com'
+            isset($options['emailTo']) ? esc_attr($options['emailTo']) : 'someone@example.com'
         );
     }
 
     public function services_callback() {
+        global $osd_social_media_sharing;
         // Put the services in order
         $sortBy = array();
         foreach ($this->options['services'] as $service) {
              $sortBy[] = $service['order'];
         }
-        array_multisort($sortBy, SORT_ASC, $this->options['services']);       
+        array_multisort($sortBy, SORT_ASC, $this->options['services']);
 
         echo 
             "<table class='wp-list-table widefat options-wrapper available-services'>
@@ -198,10 +198,9 @@ class OSDSocialShareSettings {
                 <tbody class='ui-sortable'>";
 
         $counter = 0;
-        $stock_services = array('facebook', 'twitter', 'google', 'linkedIn', 'pinterest', 'email');
         foreach ($this->options['services'] as $id => $val) {
             $counter++;
-            $stock_service = (in_array($id, $stock_services)) ? true : false;
+            $stock_service = (isset($osd_social_media_sharing->defaults["services"][$id])) ? true : false;
             $service_name = ($stock_service) ? $id : $val['service-name'];
             $icon_selected = ' selected="selected"';
             $icon_display = "";
@@ -215,10 +214,9 @@ class OSDSocialShareSettings {
                 $icon_display = 'style="display: none;"';
             }
 
-            $enabled_checked = (isset($val['enabled'])) ? ' checked="checked"' : '';
+            $enabled_checked = (isset($val["enabled"]) && $val["enabled"] == "1") ? ' checked="checked"' : '';
             $url = (isset($val['url'])) ? $val['url'] : '';
             $icon = (isset($val['icon'])) ? $val['icon'] : '';
-            // $order = (isset($val['order']) && $val['order'] != "") ? $val['order'] : $counter;
             $order = $counter; 
             $icon_url = ($icon != '') ? "<img src='".wp_get_attachment_url($icon)."' />" : "<div class='osd-sms-icon-button osd-no-custom-icon'><div class='osd-sms-link' data-platform='{$id}'></div></div>";
 

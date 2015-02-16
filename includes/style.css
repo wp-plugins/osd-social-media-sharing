@@ -48,13 +48,14 @@
     width: 32px;
     display: block;
 }
-.osd-sms-icon-button.osd-no-custom-icon > .osd-sms-link { width: 32px; height: 32px; background-image: url("../images/icons.png"); background-repeat: no-repeat; background-size: 100% auto; background-position: 0px 0%; }
-.osd-sms-icon-button.osd-no-custom-icon > [data-platform=email] { background-position: 0px 16.666666%; }
-.osd-sms-icon-button.osd-no-custom-icon > [data-platform=twitter] { background-position: 0px 33.333333%; }
-.osd-sms-icon-button.osd-no-custom-icon > [data-platform=pinterest] { background-position: 0px 50%; }
-.osd-sms-icon-button.osd-no-custom-icon > [data-platform=linkedIn] { background-position: 0px 66.666666%; }
-.osd-sms-icon-button.osd-no-custom-icon > [data-platform=google] { background-position: 0px 83.333333%; }
-.osd-sms-icon-button.osd-no-custom-icon > [data-platform=facebook] { background-position: 0px 100%; }
+.osd-sms-icon-button.osd-no-custom-icon > .osd-sms-link { width: 32px; height: 32px; background-image: url("../images/icons.png"); background-repeat: no-repeat; background-size: 100% auto; background-position: 0px 0px; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=email] { background-position: 0px 14.285714%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=twitter] { background-position: 0px 28.57142858%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=pinterest] { background-position: 0px 42.857142%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=linkedIn] { background-position: 0px 57.142857%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=google] { background-position: 0px 71.428571%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=facebook] { background-position: 0px 85.714285%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=reddit] { background-position: 0px 100%; }
 
 
 /* Pinterest Image Picker */

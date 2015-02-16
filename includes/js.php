@@ -1,6 +1,8 @@
 <?php
 // Injects the OSD Social Sharing JavaScript into the footer of non-admin pages
 function osd_sms_js() {
+    global $osd_social_media_sharing;
+    $options = $osd_social_media_sharing->get_options();
     ?>
     <script>
         (function() {
@@ -9,6 +11,7 @@ function osd_sms_js() {
                 "twitter": [520, 400],
                 "linkedIn": [520, 475],
                 "pinterest": [850, 700],
+                "reddit": [600, 500],
                 "default": [520, 300],
             }
 
@@ -46,7 +49,7 @@ function osd_sms_js() {
                         ev.preventDefault();
                         document.querySelector('.osd-image-picker-modal').className += " osd-sms-show";
                     }
-                } else if (platform !== "email" && platform !== "print") {
+                } else {
                     open_link(this, ev);
                 }
             }
