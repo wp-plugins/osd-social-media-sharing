@@ -1,0 +1,74 @@
+.osd-sms-wrapper {
+    border-top: 1px solid #bbb;
+    display: block;
+    padding-top: 5px;
+    margin: 20px 0;
+    width: 100%;
+    position: relative;
+}
+.osd-sms-title {
+    padding: 10px 0;
+}
+.osd-sms-icon-button,
+.osd-sms-text-button {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.osd-sms-icon-button:nth-of-type(n+3),
+.osd-sms-text-button:nth-of-type(n+3) {
+    margin-left: 6px;
+}
+.osd-sms-text-button > a {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0px 0px 2px 0px rgba(100,100,100,.2);
+    font-family: arial;
+    font-size: 14px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #555;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.osd-sms-text-button > a:active {
+    box-shadow: inset 0px 0px 6px 0px rgba(100,100,100,.2);
+    padding: 6px 10px 4px 10px;
+}
+.osd-sms-text-button > a:hover {
+    text-decoration: none;
+}
+.osd-sms-link {
+    display: inline-block;
+    vertical-align: middle;
+}
+.osd-sms-link > img {
+    height: 32px;
+    width: 32px;
+    display: block;
+}
+.osd-sms-icon-button.osd-no-custom-icon > .osd-sms-link { width: 32px; height: 32px; background-image: url("../images/icons.png"); background-repeat: no-repeat; background-size: 100% auto; background-position: 0px 0px; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=email] { background-position: 0px 14.285714%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=twitter] { background-position: 0px 28.57142858%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=pinterest] { background-position: 0px 42.857142%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=linkedIn] { background-position: 0px 57.142857%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=google] { background-position: 0px 71.428571%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=facebook] { background-position: 0px 85.714285%; }
+.osd-sms-icon-button.osd-no-custom-icon > [data-platform=reddit] { background-position: 0px 100%; }
+
+
+/* Pinterest Image Picker */
+.osd-image-picker-modal, .osd-image-picker, .osd-image-picker-list, .osd-image-picker-img-cont, .osd-image-picker-img, .osd-image-picker-img:before, .osd-image-picker-img:after { box-sizing: border-box; }
+.osd-image-picker-modal { position: fixed; width: 100%; height: 100%; background: rgba(0,0,0,.5); visibility: hidden; opacity: 0; top: 0; left: 0; -webkit-transition: visibility ease-in-out .5s, opacity ease-in-out .5s; -ms-transition: visibility ease-in-out .5s, opacity ease-in-out .5s; transition: visibility ease-in-out .5s, opacity ease-in-out .5s; z-index: 100; }
+.osd-image-picker-modal.osd-sms-show { visibility: visible; opacity: 1; }
+.osd-image-picker { position: relative; z-index: 1; width: 90%; max-width: 800px; height: auto; max-height: 70%; top: 50%; left: 50%; overflow: auto; -webkit-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); border-radius: 5px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,.5); border: 1px solid #dadada; background: #f0f0f0; }
+.osd-image-picker-list { margin-left: -20px; padding: 0px 20px; padding-bottom: 20px; }
+.osd-image-picker-list:after { content: ""; display: block; clear: both; }
+.osd-image-picker-img-cont { float: left; position: relative; width: 25%; padding-left: 20px; margin-top: 20px; }
+.osd-image-picker-img { position: relative; cursor: pointer; background-size: contain; background-position: center; background-repeat: no-repeat; border: 10px solid transparent; border-radius: 5px; background-color: #ffffff; box-shadow: 0px 0px 10px 0px rgba(0,0,0,.25); width: 100%; padding-top: -webkit-calc(100% - 20px); padding-top: -ms-calc(100% - 20px); padding-top: calc(100% - 20px); }
+.osd-image-picker-img:before { content: ""; position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; padding: 10px 0 0 10px; background-color: rgba(0,0,0,.5); background-image: url(http://passets.pinterest.com/images/bm/button.png); background-repeat: no-repeat; border-radius: 5px; -webkit-transition: opacity ease-in-out .25s; -ms-transition: opacity ease-in-out .25s; transition: opacity ease-in-out .25s; }
+.osd-image-picker-img:hover:before { opacity: 1; }
+.osd-image-picker-img:after { content: attr(data-media-size); white-space: nowrap; position: absolute; text-align: center; bottom: 0px; left: 50%; -webkit-transform: translate(-50%, 0); -ms-transform: translate(-50%, 0); transform: translate(-50%, 0); background: rgba(0,0,0,0.5); border-radius: 10px; color: white; font-family: helvetica, sans-serif; font-size: 10px; padding: 4px 8px; font-weight: 700; }
+@media only screen and (max-width: 640px) { .osd-image-picker-img-cont { width: 33.333333%; }}
+@media only screen and (max-width: 480px) { .osd-image-picker-img-cont { width: 50%; }}
