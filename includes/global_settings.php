@@ -7,6 +7,7 @@ $settingsPage = new OSDSocialShareSettings($osd_social_media_sharing->get_option
 
 class OSDSocialShareSettings {
     private $options;
+    private $post_types;
 
     public function __construct($options) {
         $this->options = $options;
@@ -49,7 +50,10 @@ class OSDSocialShareSettings {
     }
 
     //register / add options 
-    public function page_init() {   
+    public function page_init() {
+        // Get all the registered post types
+        $this->post_types = get_post_types(array('public' => 1), 'array');
+
         // Register Style Sheet
         wp_register_style('osd_sms_admin_style', plugins_url('includes/admin_style.css', dirname(__FILE__)));
         wp_register_style('osd_sms_style', plugins_url('includes/style.css', dirname(__FILE__)));
@@ -116,9 +120,18 @@ class OSDSocialShareSettings {
         ); 
     }
 
-    //sanitize  
+    // Sanitize  
     public function sanitize($input) {
-        // use to sanitize all inputs
+        // Get all checkboxes to accurately represent their value
+        if (!isset($input["post_types"])) {
+            $input["post_types"] = array();
+        }
+        foreach ($this->post_types as $key => $value) {
+            $input["post_types"][$key] = (isset($input["post_types"][$key]) && $input["post_types"][$key] == 1) ? 1 : 0;
+        }
+        foreach ($input["services"] as $key => $value) {
+            $input["services"][$key]["enabled"] = (isset($input["services"][$key]["enabled"]) && $input["services"][$key]["enabled"] == 1) ? 1 : 0;
+        }
         return $input;
     }
 
@@ -139,12 +152,10 @@ class OSDSocialShareSettings {
     }
 
     public function post_types_callback() {
-        $post_types = get_post_types(array('public' => 1), 'array');
-
         echo "<ul class='post-types'>";
-        foreach($post_types as $post_type) {
+        foreach($this->post_types as $post_type) {
             $checked = '';
-            if(isset($this->options['post_types'][$post_type->name])) {
+            if (isset($this->options['post_types'][$post_type->name]) && $this->options['post_types'][$post_type->name] == 1) {
                 $checked = " checked='checked'";
             }
             echo 
@@ -167,7 +178,7 @@ class OSDSocialShareSettings {
     public function emailTo_callback() {
         printf(
             '<input type="text" id="emailTo" name="osd_social_share_options[emailTo]" value="%s" />',
-            isset($options['emailTo']) ? esc_attr($options['emailTo']) : 'someone@example.com'
+            isset($this->options['emailTo']) ? esc_attr($this->options['emailTo']) : 'someone@example.com'
         );
     }
 
@@ -214,7 +225,7 @@ class OSDSocialShareSettings {
                 $icon_display = 'style="display: none;"';
             }
 
-            $enabled_checked = (isset($val["enabled"]) && $val["enabled"] == "1") ? ' checked="checked"' : '';
+            $enabled_checked = (isset($val["enabled"]) && $val["enabled"] == 1) ? ' checked="checked"' : '';
             $url = (isset($val['url'])) ? $val['url'] : '';
             $icon = (isset($val['icon'])) ? $val['icon'] : '';
             $order = $counter; 

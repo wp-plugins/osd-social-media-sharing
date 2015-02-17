@@ -9,41 +9,43 @@ class OSDSocialShare {
         "label" => "Share this:",
         "target" => "new",
         "emailTo" => "someone@example.com",
-        "post_types" => array("post" => "1"),
+        "post_types" => array("post" => 1),
         "services" => array(
             "facebook" => array(
                 "url" => "https://www.facebook.com/sharer/sharer.php?u={{CURRENT_URL}}",
-                "enabled" => 1,
                 "button-type" => "icon",
+                "enabled" => 1,
             ),
             "twitter" => array(
                 "url" => "https://twitter.com/intent/tweet?text={{POST_TITLE}}&url={{CURRENT_URL}}",
-                "enabled" => 1,
                 "button-type" => "icon",
+                "enabled" => 1,
             ),
             "google" => array(
                 "url" => "https://plus.google.com/share?url={{CURRENT_URL}}",
-                "enabled" => 1,
                 "button-type" => "icon",
+                "enabled" => 1,
             ),
             "linkedIn" => array(
                 "url" => "https://www.linkedin.com/shareArticle?mini=true&url={{CURRENT_URL}}&title={{POST_TITLE}}&summary=&source={{SITE_NAME}}",
-                "enabled" => 1,
                 "button-type" => "icon",
+                "enabled" => 1,
             ),
             "pinterest" => array(
                 "url" => "http://www.pinterest.com/pin/create/button/?url={{CURRENT_URL}}&description={{POST_TITLE}}&media=",
-                "enabled" => 1,
                 "button-type" => "icon",
+                "enabled" => 1,
             ),
             "email" => array(
                 "url" => "mailto:{{EMAIL_TO}}?subject={{EMAIL_SUBJECT}}&body={{EMAIL_BODY}}",
-                "enabled" => 1,
                 "button-type" => "icon",
+                "enabled" => 1,
             ),
             "reddit" => array(
                 "url" => "http://www.reddit.com/submit/?url={{CURRENT_URL}}",
                 "button-type" => "icon",
+                "order" => -1,
+                "enabled" => 0,
             )
         )
     );
@@ -58,7 +60,7 @@ class OSDSocialShare {
         // Populate the default services classes (this makes sure anything newly added to the service arrays will show up in updates)
         foreach ($this->defaults["services"] as $name => $service) {
             foreach ($service as $key => $value) {
-                if (!isset($this->options["services"][$name][$key]) || $this->options["services"][$name][$key] == "") {
+                if (!isset($this->options["services"][$name][$key]) || $this->options["services"][$name][$key] === "") {
                     $this->options["services"][$name][$key] = $this->defaults["services"][$name][$key];
                 }
             }
@@ -101,7 +103,8 @@ class OSDSocialShare {
             if ($hide != 1
                 && isset($this->options['post_types'])
                 && count($this->options['post_types']) > 0
-                && isset($this->options['post_types'][$post->post_type])) {
+                && isset($this->options['post_types'][$post->post_type])
+                && $this->options['post_types'][$post->post_type] == 1) {
                 $post->post_content .= "[osd_social_media_sharing]";
             }
         }    
