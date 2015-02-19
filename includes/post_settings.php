@@ -15,7 +15,8 @@ class OSDSocialShareMetaBoxes {
     }
 
     public function add_meta_box($post_type) {
-        $user_post_types = get_option('osd_social_share_options');
+        global $osd_social_media_sharing;
+        $user_post_types = $osd_social_media_sharing->get_options();
         $user_post_types = $user_post_types['post_types'];
 
         if (isset($user_post_types[$post_type])){
