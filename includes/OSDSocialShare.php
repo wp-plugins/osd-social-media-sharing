@@ -57,6 +57,9 @@ class OSDSocialShare {
         $this->options = get_option("osd_social_share_options");
         $this->options = ($this->options == false) ? array() : $this->options;
 
+        // Multilingual
+        load_plugin_textdomain('osd-sms-domain', false, basename(dirname(__FILE__))."/lang/");
+
         // Populate the default services classes (this makes sure anything newly added to the service arrays will show up in updates)
         foreach ($this->defaults["services"] as $name => $service) {
             foreach ($service as $key => $value) {
@@ -159,7 +162,7 @@ class OSDSocialShare {
         $html = "<div class='osd-sms-title'>{$this->options['label']}</div>";
         foreach ($this->options["services"] as $platform => $link) {
             $button_title = (isset($link['service-name'])) ? $link['service-name'] : ucfirst($platform);
-            $button_title = "Click to share on ".$button_title;
+            $button_title = __("Click to share on ", "osd-sms-domain").$button_title;
             $custom_url = (isset($link['url'])) ? $link['url'] : '';
 
             if (isset($link['enabled']) && $link['enabled'] == 1) {
