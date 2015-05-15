@@ -162,7 +162,7 @@ class OSDSocialShare {
         $html = "<div class='osd-sms-title'>{$this->options['label']}</div>";
         foreach ($this->options["services"] as $platform => $link) {
             $button_title = (isset($link['service-name'])) ? $link['service-name'] : ucfirst($platform);
-            $button_title = __("Click to share on ", "osd-sms-domain").$button_title;
+            $button_title = ($button_title == 'Email') ? __("Click to share by ", "osd-sms-domain").$button_title : __("Click to share on ", "osd-sms-domain").$button_title;
             $custom_url = (isset($link['url'])) ? $link['url'] : '';
 
             if (isset($link['enabled']) && $link['enabled'] == 1) {
