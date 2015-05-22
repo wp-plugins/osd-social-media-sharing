@@ -123,7 +123,7 @@ class OSDSocialShare {
     // Creates a HTML share link
     private function share_link($platform, $button_title, $custom_url) {
         $target = ($this->options["target"] == "new" && $platform != "email") ? "_blank" : "_self";
-        $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != '') ? "https://" : "http://";
+        $protocol = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "" && $_SERVER["HTTPS"] !== "off") ? "https://" : "http://";
         $searches = array(
             "{{SITE_NAME}}", 
             "{{CURRENT_URL}}", 
