@@ -17,7 +17,7 @@ class OSDSocialShare {
                 "enabled" => 1,
             ),
             "twitter" => array(
-                "url" => "https://twitter.com/intent/tweet?text={{POST_TITLE}}&url={{CURRENT_URL}}",
+                "url" => "https://twitter.com/intent/tweet?text={{POST_TITLE}}&amp;url={{CURRENT_URL}}",
                 "button-type" => "icon",
                 "enabled" => 1,
             ),
@@ -27,17 +27,17 @@ class OSDSocialShare {
                 "enabled" => 1,
             ),
             "linkedIn" => array(
-                "url" => "https://www.linkedin.com/shareArticle?mini=true&url={{CURRENT_URL}}&title={{POST_TITLE}}&summary=&source={{SITE_NAME}}",
+                "url" => "https://www.linkedin.com/shareArticle?mini=true&amp;url={{CURRENT_URL}}&amp;title={{POST_TITLE}}&amp;summary=&amp;source={{SITE_NAME}}",
                 "button-type" => "icon",
                 "enabled" => 1,
             ),
             "pinterest" => array(
-                "url" => "http://www.pinterest.com/pin/create/button/?url={{CURRENT_URL}}&description={{POST_TITLE}}&media=",
+                "url" => "http://www.pinterest.com/pin/create/button/?url={{CURRENT_URL}}&amp;description={{POST_TITLE}}&amp;media=",
                 "button-type" => "icon",
                 "enabled" => 1,
             ),
             "email" => array(
-                "url" => "mailto:{{EMAIL_TO}}?subject={{EMAIL_SUBJECT}}&body={{EMAIL_BODY}}",
+                "url" => "mailto:{{EMAIL_TO}}?subject={{EMAIL_SUBJECT}}&amp;body={{EMAIL_BODY}}",
                 "button-type" => "icon",
                 "enabled" => 1,
             ),
